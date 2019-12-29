@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-microservico-o
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+  selector:
+    app: microservico-o
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: microservico-i
+spec:
+  hosts:
+  - example.com
+  addresses:
+  - 192.168.0.3 
+  ports:
+  - number: 8081
+    name: http
+    protocol: HTTP
+  resolution: NONE
+  location: MESH_EXTERNAL
